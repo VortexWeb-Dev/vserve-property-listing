@@ -847,11 +847,7 @@ function getUser($filter)
 function isAdmin($userId)
 {
     $admins = [
-        3, // odai@giproperties.ae/ceo@giproperties.ae
-        1593, // alyssa.ashley@giproperties.ae
-        1893, // justine.p@giproperties.ae
-        204, // it@giproperties.ae,
-        1945, // VortexWeb (Aaryan)
+        10, // VortexWeb
     ];
 
     return in_array($userId, $admins);
