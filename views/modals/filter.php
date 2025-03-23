@@ -270,7 +270,7 @@
 
         const fetchAgents = async () => {
             try {
-                const response = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&select[0]=id&select[1]=ufCrm14AgentName&order[ufCrm14AgentName]=asc`);
+                const response = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&select[0]=id&select[1]=ufCrm12AgentName&order[ufCrm12AgentName]=asc`);
                 const data = await response.json();
                 return data.result.items;
             } catch (error) {
@@ -317,7 +317,7 @@
                 const agents = await fetchAgents();
                 agents.forEach(agent => {
                     owners.push({
-                        NAME: agent.ufCrm14AgentName
+                        NAME: agent.ufCrm12AgentName
                     });
                 });
 
@@ -341,7 +341,7 @@
                 ]);
 
 
-                createSelectOptions(agents, listingAgentSelect, 'ufCrm14AgentName', 'ufCrm14AgentName');
+                createSelectOptions(agents, listingAgentSelect, 'ufCrm12AgentName', 'ufCrm12AgentName');
                 createSelectOptions(developers, developerSelect, 'ufCrm41DeveloperName', 'ufCrm41DeveloperName');
                 createSelectOptions(owners, listingOwnerSelect, 'NAME', 'NAME');
             } catch (error) {

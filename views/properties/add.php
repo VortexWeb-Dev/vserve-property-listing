@@ -173,12 +173,12 @@
         };
 
         if (agent) {
-            fields["ufCrm12AgentId"] = agent.ufCrm14AgentId;
-            fields["ufCrm12AgentName"] = agent.ufCrm14AgentName;
-            fields["ufCrm12AgentEmail"] = agent.ufCrm14AgentEmail;
-            fields["ufCrm12AgentPhone"] = agent.ufCrm14AgentMobile;
-            fields["ufCrm12AgentPhoto"] = agent.ufCrm14AgentPhoto;
-            fields["ufCrm12AgentLicense"] = agent.ufCrm14AgentLicense;
+            fields["ufCrm12AgentId"] = agent.ufCrm12AgentId;
+            fields["ufCrm12AgentName"] = agent.ufCrm12AgentName;
+            fields["ufCrm12AgentEmail"] = agent.ufCrm12AgentEmail;
+            fields["ufCrm12AgentPhone"] = agent.ufCrm12AgentMobile;
+            fields["ufCrm12AgentPhoto"] = agent.ufCrm12AgentPhoto;
+            fields["ufCrm12AgentLicense"] = agent.ufCrm12AgentLicense;
         }
 
         // Notes

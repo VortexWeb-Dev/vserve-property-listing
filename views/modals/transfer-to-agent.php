@@ -17,7 +17,7 @@
                             <?php
                             $agents_result = CRest::call('crm.item.list', [
                                 'entityTypeId' => AGENTS_ENTITY_TYPE_ID,
-                                'select' => ['ufCrm14AgentId', 'ufCrm14AgentName']
+                                'select' => ['ufCrm12AgentId', 'ufCrm12AgentName']
                             ]);
                             $listing_agents = $agents_result['result']['items'] ?? [];
 
@@ -25,7 +25,7 @@
                                 echo '<option disabled>No agents found</option>';
                             } else {
                                 foreach ($listing_agents as $agent) {
-                                    echo '<option value="' . htmlspecialchars($agent['ufCrm14AgentId']) . '">' . htmlspecialchars($agent['ufCrm14AgentName']) . '</option>';
+                                    echo '<option value="' . htmlspecialchars($agent['ufCrm12AgentId']) . '">' . htmlspecialchars($agent['ufCrm12AgentName']) . '</option>';
                                 }
                             }
                             ?>
@@ -64,7 +64,7 @@
     }
 
     async function getAgent(agentId) {
-        const response = await fetch(`${API_BASE_URL}crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&filter[ufCrm14AgentId]=${agentId}`);
+        const response = await fetch(`${API_BASE_URL}crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&filter[ufCrm12AgentId]=${agentId}`);
         return (await response.json()).result.items[0] || null;
     }
 
@@ -79,12 +79,12 @@
         if (!agent) return console.error('Agent not found');
 
         const fields = {
-            "ufCrm12AgentId": agent.ufCrm14AgentId,
-            "ufCrm12AgentName": agent.ufCrm14AgentName,
-            "ufCrm12AgentEmail": agent.ufCrm14AgentEmail,
-            "ufCrm12AgentPhone": agent.ufCrm14AgentMobile,
-            "ufCrm12AgentPhoto": agent.ufCrm14AgentPhoto,
-            "ufCrm12AgentLicense": agent.ufCrm14AgentLicense
+            "ufCrm12AgentId": agent.ufCrm12AgentId,
+            "ufCrm12AgentName": agent.ufCrm12AgentName,
+            "ufCrm12AgentEmail": agent.ufCrm12AgentEmail,
+            "ufCrm12AgentPhone": agent.ufCrm12AgentMobile,
+            "ufCrm12AgentPhoto": agent.ufCrm12AgentPhoto,
+            "ufCrm12AgentLicense": agent.ufCrm12AgentLicense
         };
 
         const propertyIds = formData.get('transferAgentPropertyIds').split(',');

@@ -41,36 +41,36 @@
         </div>
 
         <!-- Column 1 -->
-        <div class="max-w-sm">
+        <!-- <div class="max-w-sm">
             <label for="landlord_name2" class="block text-sm font-medium mb-2">Landlord Name 2</label>
             <input type="text" id="landlord_name2" name="landlord_name2" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-        </div>
+        </div> -->
         <!-- Column 2 -->
-        <div class="max-w-sm">
+        <!-- <div class="max-w-sm">
             <label for="landlord_email2" class="block text-sm font-medium mb-2">Landlord Email 2</label>
             <input type="email" id="landlord_email2" name="landlord_email2" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-        </div>
+        </div> -->
         <!-- Column 1 -->
-        <div class="max-w-sm">
+        <!-- <div class="max-w-sm">
             <label for="landlord_phone2" class="block text-sm font-medium mb-2">Landlord Phone 2</label>
             <input type="text" id="landlord_phone2" name="landlord_phone2" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-        </div>
+        </div> -->
 
         <!-- Column 1 -->
-        <div class="max-w-sm">
+        <!-- <div class="max-w-sm">
             <label for="landlord_name3" class="block text-sm font-medium mb-2">Landlord Name 3</label>
             <input type="text" id="landlord_name3" name="landlord_name3" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-        </div>
+        </div> -->
         <!-- Column 2 -->
-        <div class="max-w-sm">
+        <!-- <div class="max-w-sm">
             <label for="landlord_email3" class="block text-sm font-medium mb-2">Landlord Email 3</label>
             <input type="email" id="landlord_email3" name="landlord_email3" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-        </div>
+        </div> -->
         <!-- Column 1 -->
-        <div class="max-w-sm">
+        <!-- <div class="max-w-sm">
             <label for="landlord_phone3" class="block text-sm font-medium mb-2">Landlord Phone 3</label>
             <input type="text" id="landlord_phone3" name="landlord_phone3" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-        </div>
+        </div> -->
 
         <!-- Column 1 -->
         <div class="max-w-sm">
@@ -106,7 +106,7 @@
 
         const fetchAndDisplayOptions = async () => {
             try {
-                const agentsResponse = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&select[0]=ufCrm14AgentId&select[1]=ufCrm14AgentName&order[ufCrm14AgentName]=asc`);
+                const agentsResponse = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&select[0]=ufCrm12AgentId&select[1]=ufCrm12AgentName&order[ufCrm12AgentName]=asc`);
                 const agentsData = await agentsResponse.json();
                 const agents = agentsData.result.items;
 
@@ -114,8 +114,8 @@
 
                 agents.forEach(agent => {
                     const option = document.createElement('option');
-                    option.value = agent.ufCrm14AgentId;
-                    option.textContent = agent.ufCrm14AgentName;
+                    option.value = agent.ufCrm12AgentId;
+                    option.textContent = agent.ufCrm12AgentName;
                     listingAgentSelect.appendChild(option);
                 });
 
@@ -138,7 +138,7 @@
 
                 agents.forEach(agent => {
                     owners.push({
-                        NAME: agent.ufCrm14AgentName
+                        NAME: agent.ufCrm12AgentName
                     })
                 })
 

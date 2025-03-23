@@ -693,11 +693,11 @@ function generateAgentsXml($agents)
     foreach ($agents as $agent) {
         $xml .= '<agent>';
 
-        $xml .= formatField('name', $agent['ufCrm14AgentName']);
-        $xml .= formatField('phone', $agent['ufCrm14AgentMobile']);
-        $xml .= formatField('email', $agent['ufCrm14AgentEmail']);
-        $xml .= formatField('photo', $agent['ufCrm14AgentPhoto']);
-        $xml .= formatField('license', $agent['ufCrm14AgentLicense']);
+        $xml .= formatField('name', $agent['ufCrm12AgentName']);
+        $xml .= formatField('phone', $agent['ufCrm12AgentMobile']);
+        $xml .= formatField('email', $agent['ufCrm12AgentEmail']);
+        $xml .= formatField('photo', $agent['ufCrm12AgentPhoto']);
+        $xml .= formatField('license', $agent['ufCrm12AgentLicense']);
 
         $xml .= '</agent>';
     }
@@ -847,10 +847,10 @@ function getUser($filter)
 function isAdmin($userId)
 {
     $admins = [
-        3, // odai@giproperties.ae/ceo@giproperties.ae
-        1593, // alyssa.ashley@giproperties.ae
-        1893, // justine.p@giproperties.ae
-        204, // it@giproperties.ae,
+        // 3, // odai@giproperties.ae/ceo@giproperties.ae
+        // 1593, // alyssa.ashley@giproperties.ae
+        // 1893, // justine.p@giproperties.ae
+        // 204, // it@giproperties.ae,
         1945, // VortexWeb (Aaryan)
     ];
 

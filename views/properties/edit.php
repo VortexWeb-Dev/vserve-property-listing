@@ -181,12 +181,12 @@
 
         if (agent) {
             Object.assign(fields, {
-                "ufCrm12AgentId": agent.ufCrm14AgentId,
-                "ufCrm12AgentName": agent.ufCrm14AgentName,
-                "ufCrm12AgentEmail": agent.ufCrm14AgentEmail,
-                "ufCrm12AgentPhone": agent.ufCrm14AgentMobile,
-                "ufCrm12AgentPhoto": agent.ufCrm14AgentPhoto,
-                "ufCrm12AgentLicense": agent.ufCrm14AgentLicense,
+                "ufCrm12AgentId": agent.ufCrm12AgentId,
+                "ufCrm12AgentName": agent.ufCrm12AgentName,
+                "ufCrm12AgentEmail": agent.ufCrm12AgentEmail,
+                "ufCrm12AgentPhone": agent.ufCrm12AgentMobile,
+                "ufCrm12AgentPhoto": agent.ufCrm12AgentPhoto,
+                "ufCrm12AgentLicense": agent.ufCrm12AgentLicense,
             });
         }
 

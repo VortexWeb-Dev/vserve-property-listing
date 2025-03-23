@@ -87,12 +87,12 @@
         });
 
         const fields = {
-            "ufCrm14AgentId": data.pfId.trim(),
-            "ufCrm14AgentName": data.agentName.trim(),
-            "ufCrm14AgentEmail": data.agentEmail.trim(),
-            "ufCrm14AgentMobile": data.agentMobile.trim(),
-            "ufCrm14AgentLicense": data.agentLicense.trim(),
-            "ufCrm14AgentPhoto": data.agentPhoto.trim(),
+            "ufCrm12AgentId": data.pfId.trim(),
+            "ufCrm12AgentName": data.agentName.trim(),
+            "ufCrm12AgentEmail": data.agentEmail.trim(),
+            "ufCrm12AgentMobile": data.agentMobile.trim(),
+            "ufCrm12AgentLicense": data.agentLicense.trim(),
+            "ufCrm12AgentPhoto": data.agentPhoto.trim(),
         };
 
         addItem(AGENTS_ENTITY_ID, fields);

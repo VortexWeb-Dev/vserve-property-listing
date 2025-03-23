@@ -47,7 +47,7 @@
     async function fetchAgents(page = 1) {
         const baseUrl = API_BASE_URL;
         const entityTypeId = AGENTS_ENTITY_ID;
-        const apiUrl = `${baseUrl}/crm.item.list?entityTypeId=${entityTypeId}&order[id]=desc&select[0]=id&select[1]=ufCrm14AgentName&select[2]=ufCrm14AgentEmail&select[3]=ufCrm14AgentMobile&select[4]=ufCrm14AgentLicense&select[5]=ufCrm14AgentPhoto&select[6]=ufCrm14AgentId&start=${(page - 1) * pageSize}`;
+        const apiUrl = `${baseUrl}/crm.item.list?entityTypeId=${entityTypeId}&order[id]=desc&select[0]=id&select[1]=ufCrm12AgentName&select[2]=ufCrm12AgentEmail&select[3]=ufCrm12AgentMobile&select[4]=ufCrm12AgentLicense&select[5]=ufCrm12AgentPhoto&select[6]=ufCrm12AgentId&start=${(page - 1) * pageSize}`;
 
         const loading = document.getElementById('loading');
         const agentTable = document.getElementById('agent-table');
@@ -85,18 +85,18 @@
                 .map(
                     (agent) => `
                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">${agent.ufCrm14AgentId}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">${agent.ufCrm12AgentId}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 flex items-center space-x-2">
                         <img 
                             class="w-10 h-10 object-cover rounded-full" 
-                            src="${agent.ufCrm14AgentPhoto || './assets/images/agent-placeholder.webp'}" 
-                            alt="${agent.ufCrm14AgentName || 'Agent'}" />
-                        <span>${agent.ufCrm14AgentName || 'Agent'}</span>
+                            src="${agent.ufCrm12AgentPhoto || './assets/images/agent-placeholder.webp'}" 
+                            alt="${agent.ufCrm12AgentName || 'Agent'}" />
+                        <span>${agent.ufCrm12AgentName || 'Agent'}</span>
                     </td>
 
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">${agent.ufCrm14AgentEmail || ''}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">${agent.ufCrm14AgentMobile || ''}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">${agent.ufCrm14AgentLicense || ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">${agent.ufCrm12AgentEmail || ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">${agent.ufCrm12AgentMobile || ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">${agent.ufCrm12AgentLicense || ''}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                         <button onclick="deleteAgent(${agent.id})" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
                     </td>
