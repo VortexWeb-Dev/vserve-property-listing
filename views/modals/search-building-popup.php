@@ -29,9 +29,9 @@
 
             const data = {
                 "entityTypeId": PF_LOCATIONS_ENTITY_ID, // Already correct
-                "select": ["id", "ufCrm44Building"], // Updated field name
+                "select": ["id", "ufCrm6Building"], // Updated field name
                 "filter": {
-                    "%ufCrm44Building": query // Updated field name in filter
+                    "%ufCrm6Building": query // Updated field name in filter
                 }
             };
 
@@ -61,8 +61,8 @@
 
                         // Filter out duplicates while preserving order
                         items.forEach(item => {
-                            if (!uniqueBuildings.has(item.ufCrm44Building)) {
-                                uniqueBuildings.add(item.ufCrm44Building);
+                            if (!uniqueBuildings.has(item.ufCrm6Building)) {
+                                uniqueBuildings.add(item.ufCrm6Building);
                                 uniqueItems.push(item);
                             }
                         });
@@ -72,10 +72,10 @@
                             const itemElement = document.createElement('li');
                             itemElement.classList.add('list-group-item');
                             itemElement.style.cursor = 'pointer';
-                            itemElement.innerHTML = item.ufCrm44Building;
+                            itemElement.innerHTML = item.ufCrm6Building;
 
                             itemElement.addEventListener('click', function() {
-                                searchInput.value = item.ufCrm44Building;
+                                searchInput.value = item.ufCrm6Building;
                                 popup.classList.add('d-none');
                                 resultContainer.innerHTML = '';
                             });

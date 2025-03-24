@@ -28,9 +28,9 @@
 
             const data = {
                 "entityTypeId": PF_LOCATIONS_ENTITY_ID,
-                "select": ["id", "ufCrm44City"],
+                "select": ["id", "ufCrm6City"],
                 "filter": {
-                    "%ufCrm44City": query
+                    "%ufCrm6City": query
                 }
             };
 
@@ -58,8 +58,8 @@
                         const uniqueItems = [];
 
                         items.forEach(item => {
-                            if (!uniqueCities.has(item.ufCrm44City)) {
-                                uniqueCities.add(item.ufCrm44City);
+                            if (!uniqueCities.has(item.ufCrm6City)) {
+                                uniqueCities.add(item.ufCrm6City);
                                 uniqueItems.push(item);
                             }
                         });
@@ -68,10 +68,10 @@
                             const itemElement = document.createElement('li');
                             itemElement.classList.add('list-group-item');
                             itemElement.style.cursor = 'pointer';
-                            itemElement.innerHTML = item.ufCrm44City;
+                            itemElement.innerHTML = item.ufCrm6City;
 
                             itemElement.addEventListener('click', function() {
-                                searchInput.value = item.ufCrm44City;
+                                searchInput.value = item.ufCrm6City;
                                 popup.classList.add('d-none');
                                 resultContainer.innerHTML = '';
                             });

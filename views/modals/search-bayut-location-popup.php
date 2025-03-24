@@ -43,9 +43,9 @@
             const webhookUrl = `${API_BASE_URL}crm.item.list`;
             const data = {
                 entityTypeId: BAYUT_LOCATIONS_ENTITY_ID,
-                select: ["id", "ufCrm46Location", "ufCrm46City", "ufCrm46Community", "ufCrm46SubCommunity", "ufCrm46Building"],
+                select: ["id", "ufCrm8Location", "ufCrm8City", "ufCrm8Community", "ufCrm8SubCommunity", "ufCrm8Building"],
                 filter: {
-                    "%ufCrm46Location": query
+                    "%ufCrm8Location": query
                 }
             };
 
@@ -77,12 +77,12 @@
                 items.forEach(item => {
                     const itemElement = document.createElement('li');
                     itemElement.classList.add('p-2', 'cursor-pointer', 'border-b', 'hover:bg-gray-100', 'text-gray-700');
-                    itemElement.innerText = item.ufCrm46Location;
+                    itemElement.innerText = item.ufCrm8Location;
 
                     itemElement.addEventListener('click', () => {
-                        searchInput.value = item.ufCrm46Location;
+                        searchInput.value = item.ufCrm8Location;
                         togglePopup(false);
-                        autofillLocation(item.ufCrm46Location, item.ufCrm46City, item.ufCrm46Community, item.ufCrm46SubCommunity, item.ufCrm46Building);
+                        autofillLocation(item.ufCrm8Location, item.ufCrm8City, item.ufCrm8Community, item.ufCrm8SubCommunity, item.ufCrm8Building);
                     });
 
                     resultContainer.appendChild(itemElement);

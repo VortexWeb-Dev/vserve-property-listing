@@ -103,11 +103,11 @@
 
 
         const fields = {
-            "ufCrm44Location": data.location,
-            "ufCrm44City": data.city,
-            "ufCrm44Community": data.community,
-            "ufCrm44SubCommunity": data.subCommunity,
-            "ufCrm44Building": data.building,
+            "ufCrm6Location": data.location,
+            "ufCrm6City": data.city,
+            "ufCrm6Community": data.community,
+            "ufCrm6SubCommunity": data.subCommunity,
+            "ufCrm6Building": data.building,
         };
 
         addItem(PF_LOCATIONS_ENTITY_ID, fields);

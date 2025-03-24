@@ -317,7 +317,7 @@
                 const agents = await fetchAgents();
                 agents.forEach(agent => {
                     owners.push({
-                        NAME: agent.ufCrm12AgentName
+                        NAME: agent.ufCrm14AgentName
                     });
                 });
 

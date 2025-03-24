@@ -29,9 +29,9 @@
 
             const data = {
                 "entityTypeId": PF_LOCATIONS_ENTITY_ID, // Updated entity ID
-                "select": ["id", "ufCrm44Community"], // Updated field name
+                "select": ["id", "ufCrm6Community"], // Updated field name
                 "filter": {
-                    "%ufCrm44Community": query // Updated field name in filter
+                    "%ufCrm6Community": query // Updated field name in filter
                 }
             };
 
@@ -61,8 +61,8 @@
 
                         // Filter out duplicates while preserving order
                         items.forEach(item => {
-                            if (!uniqueCommunities.has(item.ufCrm44Community)) {
-                                uniqueCommunities.add(item.ufCrm44Community);
+                            if (!uniqueCommunities.has(item.ufCrm6Community)) {
+                                uniqueCommunities.add(item.ufCrm6Community);
                                 uniqueItems.push(item);
                             }
                         });
@@ -72,10 +72,10 @@
                             const itemElement = document.createElement('li');
                             itemElement.classList.add('list-group-item');
                             itemElement.style.cursor = 'pointer';
-                            itemElement.innerHTML = item.ufCrm44Community;
+                            itemElement.innerHTML = item.ufCrm6Community;
 
                             itemElement.addEventListener('click', function() {
-                                searchInput.value = item.ufCrm44Community;
+                                searchInput.value = item.ufCrm6Community;
                                 popup.classList.add('d-none');
                                 resultContainer.innerHTML = '';
                             });
