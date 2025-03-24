@@ -62,7 +62,7 @@
         });
 
         const fields = {
-            "ufCrm41DeveloperName": data.developerName.trim(),
+            "ufCrm10DeveloperName": data.developerName.trim(),
         };
 
         addItem(DEVELOPERS_ENTITY_ID, fields);

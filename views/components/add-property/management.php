@@ -103,19 +103,26 @@
         const listingOwnerSelect = document.getElementById('listing_owner');
 
         const baseUrl = API_BASE_URL;
+        
 
         const fetchAndDisplayOptions = async () => {
             try {
-                const agentsResponse = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&select[0]=ufCrm12AgentId&select[1]=ufCrm12AgentName&order[ufCrm12AgentName]=asc`);
+                const agentsResponse = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&select[0]=ufCrm14AgentId&select[1]=ufCrm14AgentName&order[ufCrm14AgentName]=asc`);
+                console.log("agent url: ", `${baseUrl}/crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&select[0]=ufCrm14AgentId&select[1]=ufCrm14AgentName&order[ufCrm14AgentName]=asc`);
+                
                 const agentsData = await agentsResponse.json();
+                console.log("agentsData", agentsData);
+                
                 const agents = agentsData.result.items;
+                console.log("agents", agents);
+                
 
                 listingAgentSelect.removeChild(listingAgentSelect.options[1]);
 
                 agents.forEach(agent => {
                     const option = document.createElement('option');
-                    option.value = agent.ufCrm12AgentId;
-                    option.textContent = agent.ufCrm12AgentName;
+                    option.value = agent.ufCrm14AgentId;
+                    option.textContent = agent.ufCrm14AgentName;
                     listingAgentSelect.appendChild(option);
                 });
 
@@ -138,7 +145,7 @@
 
                 agents.forEach(agent => {
                     owners.push({
-                        NAME: agent.ufCrm12AgentName
+                        NAME: agent.ufCrm14AgentName
                     })
                 })
 

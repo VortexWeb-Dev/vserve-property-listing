@@ -14,8 +14,10 @@
     <div class="mb-4">
         <!-- Column 1 -->
         <div class="max-w-sm">
-            <label for="watermark" class="block text-sm font-medium mb-2">Watermark? <span class="text-gray-500 text-xs">(Property Images and Floorplan)</span></label>
-            <input type="checkbox" id="watermark" name="watermark" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+            <label for="watermark" class="block text-sm font-medium mb-2">
+                Watermark? <span class="text-gray-500 text-xs">(Property Images and Floorplan)</span>
+            </label>
+            <input type="checkbox" id="watermark" name="watermark" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked>
         </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-4">

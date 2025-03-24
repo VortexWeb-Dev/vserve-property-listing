@@ -186,7 +186,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const developerSelect = document.getElementById('developer');
 
-        const url = `${API_BASE_URL}crm.item.list?entityTypeId=${DEVELOPERS_ENTITY_ID}&select[0]=ID&select[1]=ufCrm41DeveloperName&order[ufCrm41DeveloperName]=asc`;
+        const url = `${API_BASE_URL}crm.item.list?entityTypeId=${DEVELOPERS_ENTITY_ID}&select[0]=ID&select[1]=ufCrm10DeveloperName&order[ufCrm10DeveloperName]=asc`;
 
         const fetchAndDisplayOptions = async () => {
             try {
@@ -206,8 +206,8 @@
 
                 developers.forEach(developer => {
                     const option = document.createElement('option');
-                    option.value = developer.ufCrm41DeveloperName;
-                    option.textContent = developer.ufCrm41DeveloperName;
+                    option.value = developer.ufCrm10DeveloperName;
+                    option.textContent = developer.ufCrm10DeveloperName;
                     developerSelect.appendChild(option);
                 });
 

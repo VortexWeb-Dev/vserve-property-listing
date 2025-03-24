@@ -270,7 +270,7 @@
 
         const fetchAgents = async () => {
             try {
-                const response = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&select[0]=id&select[1]=ufCrm12AgentName&order[ufCrm12AgentName]=asc`);
+                const response = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&select[0]=id&select[1]=ufCrm14AgentName&order[ufCrm14AgentName]=asc`);
                 const data = await response.json();
                 return data.result.items;
             } catch (error) {
@@ -281,13 +281,13 @@
 
         const fetchDevelopers = async () => {
             try {
-                const response = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${DEVELOPERS_ENTITY_ID}&select[0]=id&select[1]=ufCrm41DeveloperName&order[ufCrm41DeveloperName]=asc`);
+                const response = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${DEVELOPERS_ENTITY_ID}&select[0]=id&select[1]=ufCrm10DeveloperName&order[ufCrm10DeveloperName]=asc`);
                 const data = await response.json();
                 const totalDevelopers = data.total;
                 const developers = [];
 
                 for (let i = 0; i < Math.ceil(totalDevelopers / 50); i++) {
-                    const paginatedResponse = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${DEVELOPERS_ENTITY_ID}&select[0]=id&select[1]=ufCrm41DeveloperName&order[ufCrm41DeveloperName]=asc&start=${i * 50}`);
+                    const paginatedResponse = await fetch(`${baseUrl}/crm.item.list?entityTypeId=${DEVELOPERS_ENTITY_ID}&select[0]=id&select[1]=ufCrm10DeveloperName&order[ufCrm10DeveloperName]=asc&start=${i * 50}`);
                     const paginatedData = await paginatedResponse.json();
                     developers.push(...paginatedData.result.items);
                 }
@@ -342,7 +342,7 @@
 
 
                 createSelectOptions(agents, listingAgentSelect, 'ufCrm12AgentName', 'ufCrm12AgentName');
-                createSelectOptions(developers, developerSelect, 'ufCrm41DeveloperName', 'ufCrm41DeveloperName');
+                createSelectOptions(developers, developerSelect, 'ufCrm10DeveloperName', 'ufCrm10DeveloperName');
                 createSelectOptions(owners, listingOwnerSelect, 'NAME', 'NAME');
             } catch (error) {
                 console.error('Error fetching listing data:', error);

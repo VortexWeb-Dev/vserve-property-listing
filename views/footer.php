@@ -102,7 +102,7 @@
 
     // Get agent
     async function getAgent(agentId) {
-        const response = await fetch(`${API_BASE_URL}crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&filter[ufCrm12AgentId]=${agentId}`);
+        const response = await fetch(`${API_BASE_URL}crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&filter[ufCrm14AgentId]=${agentId}`);
         const data = await response.json();
         return data.result.items[0] || null;
     }
@@ -1239,8 +1239,13 @@
     // Function to fetch a property
     async function fetchProperty(id) {
         const url = `${API_BASE_URL}crm.item.get?entityTypeId=${LISTINGS_ENTITY_TYPE_ID}&id=${id}`;
+        console.log("url: ", url)
         const response = await fetch(url);
         const data = await response.json();
+        console.log("data: ", data)
+        console.log("data.result: ", data.result)
+        console.log("data.result.item: ", data.result.item);
+        
         if (data.result && data.result.item) {
             const property = data.result.item;
 
@@ -1251,14 +1256,14 @@
             document.getElementById('landlord_name').value = property.ufCrm12LandlordName;
             document.getElementById('landlord_email').value = property.ufCrm12LandlordEmail;
             document.getElementById('landlord_phone').value = property.ufCrm12LandlordContact;
-            // Landlord 2
-            document.getElementById('landlord_name2').value = property.ufCrm_12_LANDLORD_NAME_2;
-            document.getElementById('landlord_email2').value = property.ufCrm_12_LANDLORD_EMAIL_2;
-            document.getElementById('landlord_phone2').value = property.ufCrm_12_LANDLORD_CONTACT_2;
-            // Landlord 3
-            document.getElementById('landlord_name3').value = property.ufCrm_12_LANDLORD_NAME_3;
-            document.getElementById('landlord_email3').value = property.ufCrm_12_LANDLORD_EMAIL_3;
-            document.getElementById('landlord_phone3').value = property.ufCrm_12_LANDLORD_CONTACT_3;
+            // // Landlord 2
+            // document.getElementById('landlord_name2').value = property.ufCrm_12_LANDLORD_NAME_2;
+            // document.getElementById('landlord_email2').value = property.ufCrm_12_LANDLORD_EMAIL_2;
+            // document.getElementById('landlord_phone2').value = property.ufCrm_12_LANDLORD_CONTACT_2;
+            // // Landlord 3
+            // document.getElementById('landlord_name3').value = property.ufCrm_12_LANDLORD_NAME_3;
+            // document.getElementById('landlord_email3').value = property.ufCrm_12_LANDLORD_EMAIL_3;
+            // document.getElementById('landlord_phone3').value = property.ufCrm_12_LANDLORD_CONTACT_3;
 
             Array.from(document.getElementById('availability').options).forEach(option => {
                 if (option.value == property.ufCrm12Availability) option.selected = true;

@@ -8,11 +8,11 @@ $baseUrl = WEB_HOOK_URL;
 $entityTypeId = AGENTS_ENTITY_TYPE_ID;
 $fields = [
     'id',
-    'ufCrm12AgentName',
-    'ufCrm12AgentEmail',
-    'ufCrm12AgentMobile',
-    'ufCrm12AgentLicense',
-    'ufCrm12AgentPhoto'
+    'ufCrm14AgentName',
+    'ufCrm14AgentEmail',
+    'ufCrm14AgentMobile',
+    'ufCrm14AgentLicense',
+    'ufCrm14AgentPhoto'
 ];
 
 $agents = fetchAllAgents($baseUrl, $entityTypeId, $fields);

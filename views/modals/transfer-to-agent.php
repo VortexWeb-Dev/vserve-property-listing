@@ -64,7 +64,7 @@
     }
 
     async function getAgent(agentId) {
-        const response = await fetch(`${API_BASE_URL}crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&filter[ufCrm12AgentId]=${agentId}`);
+        const response = await fetch(`${API_BASE_URL}crm.item.list?entityTypeId=${AGENTS_ENTITY_ID}&filter[ufCrm14AgentId]=${agentId}`);
         return (await response.json()).result.items[0] || null;
     }
 
