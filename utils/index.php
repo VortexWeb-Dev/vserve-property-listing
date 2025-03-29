@@ -137,7 +137,7 @@ function getPropertyType($property)
         "BU" => "Bulk units",
         "WH" => "Warehouse",
         "FA" => "Factory",
-        "OF" => "Office space",
+        "OF" => "Office",
         "RE" => "Retail",
         "LP" => "Residential Plot",
         "SH" => "Shop",
