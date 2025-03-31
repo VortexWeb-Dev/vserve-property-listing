@@ -419,7 +419,7 @@ $base64Logo = imageToBase64($companyLogoPath);
       flex: 1;
     }
 
-    .enquiry-btn {
+    .btn {
       display: inline-block;
       background-color: #1D4ED8;
       color: #FFF;
@@ -467,6 +467,9 @@ $base64Logo = imageToBase64($companyLogoPath);
 
     <!-- Right: Two stacked smaller images (30%) -->
     <div class="hero-side">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <button class="btn" id="downloadPdfBtn" style="cursor: pointer;">Download as PDF</button>
+      </div>
       <?php if (isset($images[1])): ?>
         <img
           src="<?= htmlspecialchars($images[1]) ?>"
@@ -606,8 +609,16 @@ $base64Logo = imageToBase64($companyLogoPath);
       <?= htmlspecialchars($agentPhone) ?><br>
       <small><?= htmlspecialchars($agentEmail) ?></small>
     </div>
-    <a href="mailto:<?= htmlspecialchars($agentEmail) ?>" class="enquiry-btn">Make an Enquiry</a>
+    <a href="mailto:<?= htmlspecialchars($agentEmail) ?>" class="btn">Make an Enquiry</a>
   </div>
+
+  <script>
+    document.getElementById('downloadPdfBtn').addEventListener('click', function() {
+      this.style.display = 'none'; // Hide the button
+      window.print();
+      this.style.display = 'block'; // Show the button again (optional, for subsequent visits)
+    });
+  </script>
 
 </body>
 
