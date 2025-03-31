@@ -6,9 +6,6 @@ require __DIR__ . "/crest/settings.php";
 require __DIR__ . "/utils/index.php";
 require __DIR__ . "/vendor/autoload.php";
 
-use Dompdf\Dompdf;
-use Dompdf\Options;
-
 define('C_REST_WEB_HOOK_URL', 'https://vserve.bitrix24.in/rest/10/a13qt5v1wx2q2x64/');
 
 // Fetch URL params
@@ -24,23 +21,23 @@ $response = CRest::call('crm.item.get', [
 $property = $response['result']['item'];
 
 if (!$property) {
-    die("Property not found.");
+  die("Property not found.");
 }
 
 // Utility function to sanitize file names
 function sanitizeFileName($filename)
 {
-    $filename = trim($filename);
-    $filename = str_replace(' ', '_', $filename);
-    $filename = preg_replace('/[^A-Za-z0-9_\-\.]/', '', $filename);
-    $filename = preg_replace('/_+/', '_', $filename);
-    return $filename;
+  $filename = trim($filename);
+  $filename = str_replace(' ', '_', $filename);
+  $filename = preg_replace('/[^A-Za-z0-9_\-\.]/', '', $filename);
+  $filename = preg_replace('/_+/', '_', $filename);
+  return $filename;
 }
 
 // Prepare data
 $file_name     = !empty($property['ufCrm12ReferenceNumber'])
-                   ? sanitizeFileName($property['ufCrm12ReferenceNumber']) . ".pdf"
-                   : "Property_$id.pdf";
+  ? sanitizeFileName($property['ufCrm12ReferenceNumber']) . ".pdf"
+  : "Property_$id.pdf";
 
 $title         = $property['ufCrm12TitleEn']       ?? "No Title";
 $price         = !empty($property['ufCrm12Price']) ? "AED " . $property['ufCrm12Price'] : "Not Available";
@@ -58,53 +55,56 @@ $availability  = $property['ufCrm12Availability']  ?? "Unknown";
 $geopoints     = $property['ufCrm12Geopoints']     ?? null;
 
 // Company info
-$companyLogo    = __DIR__ . "/assets/images/company-logo.png";
+$companyLogoPath = __DIR__ . "/assets/images/company-logo.png";
 $companyName    = "VSERVE REAL ESTATE";
 $companyAddress = "1717, Park Lane Tower, Business Bay, Dubai, UAE";
 $companyWebsite = "https://vserverealestate.com/";
 
 // Agent/Owner info
 if ($type === 'agent') {
-    $agentName  = $property['ufCrm12AgentName']  ?? "Agent Name";
-    $agentEmail = $property['ufCrm12AgentEmail'] ?? "agent@example.com";
-    $agentPhone = $property['ufCrm12AgentPhone'] ?? "+971 4 357 5939";
+  $agentName  = $property['ufCrm12AgentName']  ?? "Agent Name";
+  $agentEmail = $property['ufCrm12AgentEmail'] ?? "agent@example.com";
+  $agentPhone = $property['ufCrm12AgentPhone'] ?? "+971 4 357 5939";
 } elseif ($type === 'owner') {
-    $agentName  = $property['ufCrm12ListingOwner'] ?? "Owner Name";
-    // Attempt to fetch owner details from Bitrix
-    $userResponse = CRest::call("user.get", [
-        "filter" => ["NAME" => $property['ufCrm12ListingOwner']]
-    ]);
-    $owner       = $userResponse['result'][0] ?? [];
-    $agentEmail  = $owner["EMAIL"]          ?? "owner@example.com";
-    $agentPhone  = $owner["PERSONAL_MOBILE"]?? "+971 4 357 5939";
+  $agentName  = $property['ufCrm12ListingOwner'] ?? "Owner Name";
+  // Attempt to fetch owner details from Bitrix
+  $userResponse = CRest::call("user.get", [
+    "filter" => ["NAME" => $property['ufCrm12ListingOwner']]
+  ]);
+  $owner       = $userResponse['result'][0] ?? [];
+  $agentEmail  = $owner["EMAIL"]          ?? "owner@example.com";
+  $agentPhone  = $owner["PERSONAL_MOBILE"] ?? "+971 4 357 5939";
 } else {
-    // Default to current user
-    $currentUserResponse = CRestCurrent::call('user.current');
-    $user       = $currentUserResponse['result'];
-    $agentName  = trim($user['NAME'] . ' ' . $user['LAST_NAME']);
-    $agentEmail = $user['EMAIL'];
-    $agentPhone = $user['PERSONAL_MOBILE'] ?? "+971 4 357 5939";
+  // Default to current user
+  $currentUserResponse = CRestCurrent::call('user.current');
+  $user       = $currentUserResponse['result'];
+  $agentName  = trim($user['NAME'] . ' ' . $user['LAST_NAME']);
+  $agentEmail = $user['EMAIL'];
+  $agentPhone = $user['PERSONAL_MOBILE'] ?? "+971 4 357 5939";
 }
 
 // Amenities
 $amenities = $property['ufCrm12Amenities'] ?? [];
 
-// Dompdf setup
-$options = new Options();
-$options->set('defaultFont', 'Helvetica');
-$options->set('isHtml5ParserEnabled', true);
-$options->set('isPhpEnabled', true);
-$options->set('isBase64Enabled', true);
-$options->set('isRemoteEnabled', true);
+// Function to convert image to Base64
+function imageToBase64($path)
+{
+  $type = pathinfo($path, PATHINFO_EXTENSION);
+  $data = file_get_contents($path);
+  if ($data) {
+    $base64 = base64_encode($data);
+    return 'data:image/' . $type . ';base64,' . $base64;
+  }
+  return null;
+}
 
-$pdf = new Dompdf($options);
-$pdf->setPaper('A4', 'portrait');
+// Convert company logo to Base64
+$base64Logo = imageToBase64($companyLogoPath);
 
-// Start output buffering for HTML
-ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title><?= htmlspecialchars($title) ?></title>
@@ -125,7 +125,10 @@ ob_start();
       background-color: #FFFFFF;
     }
 
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
       margin: 0;
       padding: 0;
       font-weight: 600;
@@ -133,52 +136,130 @@ ob_start();
     }
 
     /* Utility classes */
-    .text-center { text-align: center; }
-    .text-right { text-align: right; }
-    .text-blue { color: #1D4ED8; }
-    .bg-light-gray { background-color: #F3F4F6; } /* Light grey */
-    .rounded-xl { border-radius: 12px; }
-    .rounded-2xl { border-radius: 16px; }
+    .text-center {
+      text-align: center;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .text-blue {
+      color: #1D4ED8;
+    }
+
+    .bg-light-gray {
+      background-color: #F3F4F6;
+    }
+
+    /* Light grey */
+    .rounded-xl {
+      border-radius: 12px;
+    }
+
+    .rounded-2xl {
+      border-radius: 16px;
+    }
+
     .shadow {
       box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
-    .mb-2 { margin-bottom: 8px; }
-    .mb-3 { margin-bottom: 12px; }
-    .mb-4 { margin-bottom: 16px; }
-    .mb-5 { margin-bottom: 20px; }
-    .mb-6 { margin-bottom: 24px; }
-    .mr-2 { margin-right: 8px; }
-    .mr-3 { margin-right: 12px; }
-    .mr-4 { margin-right: 16px; }
-    .flex { display: flex; }
-    .flex-col { flex-direction: column; }
-    .justify-between { justify-content: space-between; }
-    .items-center { align-items: center; }
-    .gap-2 { gap: 8px; }
-    .gap-3 { gap: 12px; }
-    .gap-4 { gap: 16px; }
-    .p-4 { padding: 16px; }
-    .p-3 { padding: 12px; }
-    .font-bold { font-weight: 700; }
+
+    .mb-2 {
+      margin-bottom: 8px;
+    }
+
+    .mb-3 {
+      margin-bottom: 12px;
+    }
+
+    .mb-4 {
+      margin-bottom: 16px;
+    }
+
+    .mb-5 {
+      margin-bottom: 20px;
+    }
+
+    .mb-6 {
+      margin-bottom: 24px;
+    }
+
+    .mr-2 {
+      margin-right: 8px;
+    }
+
+    .mr-3 {
+      margin-right: 12px;
+    }
+
+    .mr-4 {
+      margin-right: 16px;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-col {
+      flex-direction: column;
+    }
+
+    .justify-between {
+      justify-content: space-between;
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .gap-2 {
+      gap: 8px;
+    }
+
+    .gap-3 {
+      gap: 12px;
+    }
+
+    .gap-4 {
+      gap: 16px;
+    }
+
+    .p-4 {
+      padding: 16px;
+    }
+
+    .p-3 {
+      padding: 12px;
+    }
+
+    .font-bold {
+      font-weight: 700;
+    }
 
     /* Top Section: Hero Images */
     .hero-container {
       display: flex;
-      flex-wrap: nowrap; /* keep on one row if possible */
+      flex-wrap: nowrap;
+      /* keep on one row if possible */
       margin-bottom: 24px;
       gap: 16px;
     }
+
     .hero-main {
       width: 70%;
       position: relative;
     }
+
     .hero-side {
       width: 30%;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* vertically center smaller images */
+      justify-content: center;
+      /* vertically center smaller images */
       gap: 16px;
     }
+
     .hero-image {
       width: 100%;
       height: auto;
@@ -192,22 +273,31 @@ ob_start();
       justify-content: space-between;
       margin-bottom: 24px;
     }
+
     .title-center {
       flex: 1;
       text-align: center;
     }
+
     .price-right {
       min-width: 160px;
       text-align: right;
     }
+
     .logo-left {
-      min-width: 120px;
+      width: 100px;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
     .logo-left img {
       max-width: 100%;
       height: auto;
-      border-radius: 8px;
+      border-radius: 4px;
     }
+
     .sale-badge {
       display: inline-block;
       background-color: #1D4ED8;
@@ -218,6 +308,7 @@ ob_start();
       font-weight: 600;
       margin-left: 8px;
     }
+
     .ref-id {
       font-size: 12px;
       color: #6B7280;
@@ -229,17 +320,23 @@ ob_start();
       gap: 24px;
       margin-bottom: 24px;
     }
-    .split-left, .split-right {
+
+    .split-left,
+    .split-right {
       flex: 1;
     }
+
     .property-desc {
       margin-bottom: 16px;
     }
+
     .image-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr; /* 2x2 layout */
+      grid-template-columns: 1fr 1fr;
+      /* 2x2 layout */
       gap: 12px;
     }
+
     .grid-image {
       width: 100%;
       height: auto;
@@ -251,12 +348,15 @@ ob_start();
       padding: 24px;
       margin-bottom: 24px;
     }
+
     .amenities-list {
       display: grid;
-      grid-template-columns: 1fr 1fr; /* or 3 columns if you prefer */
+      grid-template-columns: 1fr 1fr;
+      /* or 3 columns if you prefer */
       gap: 8px;
       margin-top: 16px;
     }
+
     .amenity-item {
       display: flex;
       align-items: center;
@@ -274,9 +374,11 @@ ob_start();
       gap: 16px;
       margin-bottom: 24px;
     }
+
     .location-map {
       flex: 1;
     }
+
     .location-info {
       flex: 1;
       display: flex;
@@ -284,6 +386,7 @@ ob_start();
       justify-content: center;
       padding: 8px;
     }
+
     .map-iframe {
       width: 100%;
       height: 220px;
@@ -301,16 +404,21 @@ ob_start();
       border-radius: 8px;
       box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 3px;
     }
+
     .agent-photo {
       width: 60px;
       height: 60px;
-      border-radius: 9999px; /* fully circular */
+      border-radius: 9999px;
+      /* fully circular */
       object-fit: cover;
-      background-color: #E5E7EB; /* placeholder grey */
+      background-color: #E5E7EB;
+      /* placeholder grey */
     }
+
     .agent-details {
       flex: 1;
     }
+
     .enquiry-btn {
       display: inline-block;
       background-color: #1D4ED8;
@@ -337,6 +445,7 @@ ob_start();
     }
   </style>
 </head>
+
 <body>
 
   <!-- 1️⃣ Top Section: Hero Images -->
@@ -344,14 +453,13 @@ ob_start();
     <!-- Left: Large primary image (70%) -->
     <div class="hero-main">
       <?php if ($mainImage): ?>
-        <img 
-          src="<?= htmlspecialchars($mainImage) ?>" 
+        <img
+          src="<?= htmlspecialchars($mainImage) ?>"
           alt="Main Property Image"
-          class="hero-image shadow rounded-2xl"
-        >
+          class="hero-image shadow rounded-2xl">
       <?php else: ?>
-        <div style="padding: 40px; background-color: #f0f0f0;" 
-             class="shadow rounded-2xl text-center">
+        <div style="padding: 40px; background-color: #f0f0f0;"
+          class="shadow rounded-2xl text-center">
           No main image available
         </div>
       <?php endif; ?>
@@ -360,19 +468,17 @@ ob_start();
     <!-- Right: Two stacked smaller images (30%) -->
     <div class="hero-side">
       <?php if (isset($images[1])): ?>
-        <img 
-          src="<?= htmlspecialchars($images[1]) ?>" 
+        <img
+          src="<?= htmlspecialchars($images[1]) ?>"
           alt="Side Image 1"
-          class="hero-image shadow rounded-2xl"
-        >
+          class="hero-image shadow rounded-2xl">
       <?php endif; ?>
 
       <?php if (isset($images[2])): ?>
-        <img 
-          src="<?= htmlspecialchars($images[2]) ?>" 
+        <img
+          src="<?= htmlspecialchars($images[2]) ?>"
           alt="Side Image 2"
-          class="hero-image shadow rounded-2xl"
-        >
+          class="hero-image shadow rounded-2xl">
       <?php endif; ?>
     </div>
   </div>
@@ -381,10 +487,13 @@ ob_start();
   <div class="title-price-row">
     <!-- Company Logo -->
     <div class="logo-left">
-      <img 
-        src="file://<?= $companyLogo ?>" 
-        alt="Company Logo"
-      >
+      <?php if ($base64Logo): ?>
+        <img
+          src="<?= $base64Logo ?>"
+          alt="Company Logo">
+      <?php else: ?>
+        Logo not available
+      <?php endif; ?>
     </div>
 
     <!-- Title (center) -->
@@ -427,18 +536,18 @@ ob_start();
     <div class="split-right">
       <div class="image-grid">
         <?php
-          // Start from image index 3 to show additional interior images
-          for ($i = 3; $i < 7; $i++):
-            if (isset($images[$i])):
+        // Start from image index 3 to show additional interior images
+        for ($i = 3; $i < 7; $i++):
+          if (isset($images[$i])):
         ?>
-          <img 
-            src="<?= htmlspecialchars($images[$i]) ?>" 
-            alt="Interior Image <?= $i ?>"
-            class="grid-image shadow rounded-xl"
-          >
-        <?php else: ?>
-          <!-- If not enough images, show placeholders or skip -->
-        <?php endif; endfor; ?>
+            <img
+              src="<?= htmlspecialchars($images[$i]) ?>"
+              alt="Interior Image <?= $i ?>"
+              class="grid-image shadow rounded-xl">
+          <?php else: ?>
+            <!-- If not enough images, show placeholders or skip -->
+        <?php endif;
+        endfor; ?>
       </div>
     </div>
   </div>
@@ -462,7 +571,7 @@ ob_start();
   </div>
 
   <!-- 5️⃣ Location Section -->
-  <?php if ($geopoints): 
+  <?php if ($geopoints):
     $coords = explode(',', $geopoints);
     $lat = trim($coords[0]);
     $lng = trim($coords[1]);
@@ -473,8 +582,7 @@ ob_start();
         <iframe
           class="map-iframe"
           src="https://maps.google.com/maps?q=<?= $lat ?>,<?= $lng ?>&hl=en&z=14&output=embed"
-          allowfullscreen
-        ></iframe>
+          allowfullscreen></iframe>
       </div>
 
       <!-- Right: Location Details -->
@@ -489,20 +597,18 @@ ob_start();
   <h3 class="section-heading">Contact Information</h3>
   <div class="agent-card">
     <!-- Agent Photo (placeholder or real) -->
-    <img 
-      src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" 
-      alt="Agent Photo" 
-      class="agent-photo"
-    >
+    <img
+      src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+      alt="Agent Photo"
+      class="agent-photo">
     <div class="agent-details">
       <strong><?= htmlspecialchars($agentName) ?></strong><br>
       <?= htmlspecialchars($agentPhone) ?><br>
       <small><?= htmlspecialchars($agentEmail) ?></small>
     </div>
-    <!-- Make an Enquiry button (link to your website/contact form if desired) -->
-    <a href="#" class="enquiry-btn">Make an Enquiry</a>
+    <a href="mailto:<?= htmlspecialchars($agentEmail) ?>" class="enquiry-btn">Make an Enquiry</a>
   </div>
 
 </body>
+
 </html>
-<?php
