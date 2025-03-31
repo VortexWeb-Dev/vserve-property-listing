@@ -419,7 +419,7 @@ $base64Logo = imageToBase64($companyLogoPath);
       flex: 1;
     }
 
-    .btn {
+    .enquiry-btn {
       display: inline-block;
       background-color: #1D4ED8;
       color: #FFF;
@@ -443,10 +443,40 @@ $base64Logo = imageToBase64($companyLogoPath);
     .page-break {
       page-break-before: always;
     }
+
+    /* Download PDF Button styling */
+    .download-pdf-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: #1D4ED8;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .download-pdf-btn:hover {
+      background: #1E3A8A;
+      transform: translateY(-2px);
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <button class="download-pdf-btn no-print" onclick="downloadPDF()">Download PDF</button>
+
 
   <!-- 1️⃣ Top Section: Hero Images -->
   <div class="hero-container">
@@ -467,9 +497,6 @@ $base64Logo = imageToBase64($companyLogoPath);
 
     <!-- Right: Two stacked smaller images (30%) -->
     <div class="hero-side">
-      <div style="text-align: center; margin-bottom: 20px;">
-        <button class="btn" id="downloadPdfBtn" style="cursor: pointer;">Download as PDF</button>
-      </div>
       <?php if (isset($images[1])): ?>
         <img
           src="<?= htmlspecialchars($images[1]) ?>"
@@ -609,15 +636,17 @@ $base64Logo = imageToBase64($companyLogoPath);
       <?= htmlspecialchars($agentPhone) ?><br>
       <small><?= htmlspecialchars($agentEmail) ?></small>
     </div>
-    <a href="mailto:<?= htmlspecialchars($agentEmail) ?>" class="btn">Make an Enquiry</a>
+    <a href="mailto:<?= htmlspecialchars($agentEmail) ?>" class="enquiry-btn">Make an Enquiry</a>
   </div>
-
   <script>
-    document.getElementById('downloadPdfBtn').addEventListener('click', function() {
-      this.style.display = 'none'; // Hide the button
+    function downloadPDF() {
+      document.querySelector('.download-pdf-btn').style.display = 'none';
       window.print();
-      this.style.display = 'block'; // Show the button again (optional, for subsequent visits)
-    });
+
+      setTimeout(() => {
+        document.querySelector('.download-pdf-btn').style.display = 'block';
+      }, 10);
+    }
   </script>
 
 </body>
