@@ -487,10 +487,10 @@
                 let watermarkWidth, watermarkHeight;
 
                 if (watermarkAspect > imageAspect) {
-                    watermarkWidth = width * 0.6;
+                    watermarkWidth = width * 0.3;
                     watermarkHeight = watermarkWidth / watermarkAspect;
                 } else {
-                    watermarkHeight = height * 0.6;
+                    watermarkHeight = height * 0.3;
                     watermarkWidth = watermarkHeight * watermarkAspect;
                 }
 
