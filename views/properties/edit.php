@@ -156,14 +156,6 @@
             "ufCrm12LandlordName": data.landlord_name,
             "ufCrm12LandlordEmail": data.landlord_email,
             "ufCrm12LandlordContact": data.landlord_phone,
-            // Landlord 2
-            "ufCrm_12_LANDLORD_NAME_2": data.landlord_name2,
-            "ufCrm_12_LANDLORD_EMAIL_2": data.landlord_email2,
-            "ufCrm_12_LANDLORD_CONTACT_2": data.landlord_phone2,
-            // Landlord 3
-            "ufCrm_12_LANDLORD_NAME_3": data.landlord_name3,
-            "ufCrm_12_LANDLORD_EMAIL_3": data.landlord_email3,
-            "ufCrm_12_LANDLORD_CONTACT_3": data.landlord_phone3,
 
             "ufCrm12ContractExpiryDate": data.contract_expiry,
             "ufCrm12UnitNo": data.unit_no,
@@ -181,12 +173,12 @@
 
         if (agent) {
             Object.assign(fields, {
-                "ufCrm12AgentId": agent.ufCrm12AgentId,
-                "ufCrm12AgentName": agent.ufCrm12AgentName,
-                "ufCrm12AgentEmail": agent.ufCrm12AgentEmail,
-                "ufCrm12AgentPhone": agent.ufCrm12AgentMobile,
-                "ufCrm12AgentPhoto": agent.ufCrm12AgentPhoto,
-                "ufCrm12AgentLicense": agent.ufCrm12AgentLicense,
+                "ufCrm12AgentId": agent.ufCrm14AgentId,
+                "ufCrm12AgentName": agent.ufCrm14AgentName,
+                "ufCrm12AgentEmail": agent.ufCrm14AgentEmail,
+                "ufCrm12AgentPhone": agent.ufCrm14AgentMobile,
+                "ufCrm12AgentPhoto": agent.ufCrm14AgentPhoto,
+                "ufCrm12AgentLicense": agent.ufCrm14AgentLicense,
             });
         }
 
