@@ -10,7 +10,7 @@
           'PUBLISHED' => 'Published',
           // 'LIVE' => 'Live',
           'POCKET' => 'Pocket Listings',
-          'PENDING' => 'Pending',
+          // 'PENDING' => 'Pending',
           'ARCHIVED' => 'Archived',
           'DUPLICATE' => 'Duplicate',
         ];
@@ -139,7 +139,7 @@
       'PUBLISHED': 'Published',
       // 'LIVE': 'Live',
       'POCKET': 'Pocket Listings',
-      'PENDING': 'Pending',
+      // 'PENDING': 'Pending',
       'ARCHIVED': 'Archived',
       'DUPLICATE': 'Duplicate',
     };
