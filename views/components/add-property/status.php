@@ -21,13 +21,13 @@
         </div>
 
         <!-- Live Option -->
-        <div class="border border-gray-300 p-4 rounded-md cursor-pointer transition-colors hover:bg-blue-50 flex gap-2 items-center"
+        <!-- <div class="border border-gray-300 p-4 rounded-md cursor-pointer transition-colors hover:bg-blue-50 flex gap-2 items-center"
             data-status-value="LIVE" id="live-option">
             <input type="radio" name="status" value="LIVE" id="live" class="peer">
             <label for="live" class="text-md text-gray-500 peer-checked:text-blue-600 peer-checked:border-transparent transition-all w-full flex items-center justify-between">
                 Live
             </label>
-        </div>
+        </div> -->
 
         <!-- Draft Option -->
         <div class="border border-gray-300 p-4 rounded-md cursor-pointer transition-colors hover:bg-blue-50 flex gap-2 items-center"
