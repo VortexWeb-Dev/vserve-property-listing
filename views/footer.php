@@ -466,47 +466,54 @@
 
     // Function to add watermark to the image
     function addWatermark(imageElement, watermarkImagePath) {
-        return new Promise((resolve, reject) => {
-            const watermarkImage = new Image();
-            watermarkImage.src = watermarkImagePath;
+    return new Promise((resolve, reject) => {
+        const watermarkImage = new Image();
+        watermarkImage.src = watermarkImagePath;
 
-            watermarkImage.onload = function() {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                const width = imageElement.width;
-                const height = imageElement.height;
+        watermarkImage.onload = function() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const width = imageElement.width;
+            const height = imageElement.height;
 
-                canvas.width = width;
-                canvas.height = height;
+            canvas.width = width;
+            canvas.height = height;
 
-                ctx.drawImage(imageElement, 0, 0, width, height);
+            // Draw the original image
+            ctx.drawImage(imageElement, 0, 0, width, height);
 
-                const watermarkAspect = watermarkImage.width / watermarkImage.height;
-                const imageAspect = width / height;
+            const watermarkAspect = watermarkImage.width / watermarkImage.height;
+            const imageAspect = width / height;
 
-                let watermarkWidth, watermarkHeight;
+            let watermarkWidth, watermarkHeight;
 
-                if (watermarkAspect > imageAspect) {
-                    watermarkWidth = width * 0.6;
-                    watermarkHeight = watermarkWidth / watermarkAspect;
-                } else {
-                    watermarkHeight = height * 0.6;
-                    watermarkWidth = watermarkHeight * watermarkAspect;
-                }
+            if (watermarkAspect > imageAspect) {
+                watermarkWidth = width * 0.3; // Smaller size
+                watermarkHeight = watermarkWidth / watermarkAspect;
+            } else {
+                watermarkHeight = height * 0.3;
+                watermarkWidth = watermarkHeight * watermarkAspect;
+            }
 
-                const xPosition = (width - watermarkWidth) / 2;
-                const yPosition = (height - watermarkHeight) / 2;
+            const xPosition = (width - watermarkWidth) / 2;
+            const yPosition = (height - watermarkHeight) / 2;
 
-                ctx.drawImage(watermarkImage, xPosition, yPosition, watermarkWidth, watermarkHeight);
-                const watermarkedImage = canvas.toDataURL('image/jpeg', 0.8);
-                resolve(watermarkedImage);
-            };
+            // Set watermark opacity
+            ctx.globalAlpha = 0.5;
+            ctx.drawImage(watermarkImage, xPosition, yPosition, watermarkWidth, watermarkHeight);
 
-            watermarkImage.onerror = function() {
-                reject('Failed to load watermark image.');
-            };
-        });
-    }
+            // Reset opacity back to normal
+            ctx.globalAlpha = 1.0;
+
+            const watermarkedImage = canvas.toDataURL('image/jpeg', 0.8);
+            resolve(watermarkedImage);
+        };
+
+        watermarkImage.onerror = function() {
+            reject('Failed to load watermark image.');
+        };
+    });
+}
 
     // Function to add watermark text to the image
     function addWatermarkText(imageElement, watermarkText) {
